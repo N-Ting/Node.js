@@ -36,6 +36,10 @@ app.use('/api', userRouter)
 const userinfoRouter = require('./router/userinfo')
 //注册路由模块
 app.use('/my', userinfoRouter)
+// 导入并使用文章分类路由模块
+const artCateRouter = require('./router/artcate')
+// 为文章分类的路由挂载统一的访问前缀 /my/article
+app.use('/my/article', artCateRouter)
 //注册全局错误级别中间件，捕获验证失败
 app.use(function (err, req, res, next) {
   //数据验证失败

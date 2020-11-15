@@ -8,6 +8,10 @@ const password = joi.string().pattern(/^[\S]{6,12}$/).required()
 const id = joi.number().integer().min(1).required()
 const nickname = joi.string().required()
 const email = joi.string().email().required()
+//定义avatar的验证规则
+//dataUri()指的是如下格式的字符串
+//data：image/png;base64,VE9PTUFOWVNFQ1JFVFM=
+const avatar = joi.string().dataUri().required()
 //注册和登录表单的验证规则对象
 exports.reg_login_schema = {
   //表示需要对req.body中的数据进行验证
@@ -34,5 +38,11 @@ exports.update_password_schema = {
     // joi.not(joi.ref('oldPwd'))表示newPwd的值不能等于oldPwd的值
     //.concat()用于合并joi.not(joi.ref('oldPwd'))和password这两条验证规则
     newPwd: joi.not(joi.ref('oldPwd')).concat(password)
+  }
+}
+//验证规则对象 - 更新头像
+exports.update_avatar_schema = {
+  body: {
+    avatar
   }
 }
